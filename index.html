@@ -1,10 +1,12 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Growth Tycoon</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="game-container">
@@ -20,17 +22,14 @@
             <input type="text" id="domain" placeholder="example.com">
             <button onclick="saveDomainName()">Submit</button>
         </div>
-        <div class="resources">Money: <span id="money">1000</span>, Time: <span id="time">50</span>, Team: <span id="team">1</span></div>
-        <div class="market-share">Market Share: <span id="market-share">0</span></div>
-        <div id="level-container" style="display: none;">
-            <!-- Levels dynamically generated here -->
-        </div>
+        <div class="resources">Money: <span id="money">1000</span>, Time: <span id="time">50</span>, Market Share: <span id="market-share">0</span></div>
+        <div id="level-container" style="display: none;"></div>
         <div id="leaderboard" class="leaderboard" style="display: none;">
             <h2>Competitor Progress</h2>
             <ul id="competitor-list"></ul>
         </div>
         <div id="status"></div>
     </div>
- 
+    <script src="main.js"></script>
 </body>
 </html>
