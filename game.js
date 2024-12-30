@@ -27,11 +27,14 @@ let totalBonuses = 0;
 let levelsCompleted = 0;
 
 function preload() {
-    this.load.image('taskIcon', 'assets/taskIcon.png'); // Ensure assets are in the correct path
-    this.load.image('particle', 'assets/particle.png');
+    this.load.image('taskIcon', 'assets/taskIcon.png'); // Placeholder task image
+    this.load.image('particle', 'assets/particle.png'); // Placeholder particle image
 }
 
 function create() {
+    // Set background color
+    this.cameras.main.setBackgroundColor('#1d1f21'); // Dark gray
+
     // Center positions
     const centerX = this.cameras.main.centerX;
     const centerY = this.cameras.main.centerY;
@@ -39,13 +42,13 @@ function create() {
     // Title
     this.add.text(centerX, 50, `Website Growth Game (Level ${level})`, {
         font: '28px Arial',
-        fill: '#ffffff',
+        fill: '#00ffff', // Cyan for visibility
     }).setOrigin(0.5);
 
     // Resources display
     this.resourceText = this.add.text(20, 20, `Resources: ${resources}`, {
         font: '20px Arial',
-        fill: '#ffffff',
+        fill: '#ffffff', // White
     });
 
     // Milestone progress bar
@@ -56,7 +59,7 @@ function create() {
     // Reward preview
     this.rewardPreview = this.add.text(centerX, 140, `Reward: +${milestoneReward} Resources`, {
         font: '16px Arial',
-        fill: '#ffffff',
+        fill: '#ffcc00', // Yellow for emphasis
     }).setOrigin(0.5);
 
     // Cumulative stats display
@@ -66,8 +69,9 @@ function create() {
     });
     this.updateCumulativeStats();
 
-    // Tasks
+    // Tasks (Clickable object)
     const task = this.add.image(centerX, centerY, 'taskIcon').setInteractive();
+    task.setScale(1.5); // Make the task larger
     task.on('pointerdown', () => this.completeTask(task, 30));
 }
 
@@ -79,7 +83,7 @@ function completeTask(taskObject, reward) {
     resources += reward;
     tasksCompleted += 1;
     totalTasks += 1; // Update cumulative tasks
-    taskObject.setVisible(false);
+    taskObject.setVisible(false); // Hide the task after clicking
     this.updateProgressBar();
     this.checkMilestone();
     this.checkLevelCompletion();
