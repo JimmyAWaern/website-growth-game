@@ -22,17 +22,14 @@ let level = 1;
 let tasksCompleted = 0;
 let milestoneTarget = 3;
 let milestoneReward = 50;
-let totalTasks = 0;
-let totalBonuses = 0;
-let levelsCompleted = 0;
 
 function preload() {
-    this.load.image('taskIcon', 'assets/taskIcon.png'); // Placeholder for task image
-    this.load.image('particle', 'assets/particle.png'); // Placeholder for particle effect
+    this.load.image('taskIcon', 'assets/taskIcon.png'); // Placeholder task image
+    this.load.image('particle', 'assets/particle.png'); // Placeholder particle effect
 }
 
 function create() {
-    // Dynamic positions for centering elements
+    // Center positions
     const centerX = this.cameras.main.centerX;
     const centerY = this.cameras.main.centerY;
 
@@ -42,20 +39,20 @@ function create() {
     // Title
     this.add.text(centerX, 40, `Website Growth Game (Level ${level})`, {
         font: '28px Arial',
-        fill: '#ffffff',
+        fill: '#00ffff', // Cyan
     }).setOrigin(0.5);
 
     // Resources display
     this.resourceText = this.add.text(centerX, 80, `Resources: ${resources}`, {
         font: '20px Arial',
-        fill: '#00ff00', // Green for visibility
+        fill: '#00ff00', // Green
     }).setOrigin(0.5);
 
     // Milestone progress bar
     const progressBarWidth = this.cameras.main.width * 0.6; // 60% of canvas width
     this.add.text(centerX, 120, 'Milestone Progress:', {
         font: '18px Arial',
-        fill: '#ffffff',
+        fill: '#ffffff', // White
     }).setOrigin(0.5);
 
     const progressBarBg = this.add.rectangle(centerX, 140, progressBarWidth, 20, 0x666666).setOrigin(0.5);
@@ -64,41 +61,65 @@ function create() {
     // Reward preview
     this.rewardPreview = this.add.text(centerX, 180, `Reward: +${milestoneReward} Resources`, {
         font: '16px Arial',
-        fill: '#ffcc00', // Yellow for emphasis
+        fill: '#ffcc00', // Yellow
     }).setOrigin(0.5);
 
-    // Task (Clickable object)
-    const task = this.add.image(centerX, centerY, 'taskIcon').setInteractive();
-    task.setScale(1.5); // Scale up the task icon
-    task.on('pointerdown', () => this.completeTask(task, 30));
+    // Add clickable task icon
+    const task = this.add.image(centerX, centerY + 100, 'taskIcon').setInteractive();
+    task.setScale(1.5); // Scale up the task icon for better visibility
+    task.on('pointerdown', () => this.completeTask(task));
+
+    // Add tutorial text
+    this.add.text(centerX, this.cameras.main.height - 50, 'Click the box to complete tasks!', {
+        font: '16px Arial',
+        fill: '#ffffff', // White
+    }).setOrigin(0.5);
 }
 
 function update() {
     this.resourceText.setText(`Resources: ${resources}`);
 }
 
-function completeTask(taskObject, reward) {
-    resources += reward;
-    tasksCompleted += 1;
-    totalTasks += 1; // Update cumulative tasks
-    taskObject.setVisible(false); // Hide the task when clicked
+function completeTask(taskObject) {
+    resources += 10; // Increment resources
+    tasksCompleted += 1; // Increment tasks completed
+
+    // Show temporary feedback
+    const feedbackText = this.add.text(taskObject.x, taskObject.y, '+10!', {
+        font: '18px Arial',
+        fill: '#00ff00', // Green
+    }).setOrigin(0.5);
+    this.tweens.add({
+        targets: feedbackText,
+        y: taskObject.y - 30, // Move feedback upward
+        alpha: 0, // Fade out
+        duration: 800,
+        onComplete: () => feedbackText.destroy(),
+    });
+
+    // Update progress bar
     this.updateProgressBar();
-    this.checkMilestone();
+
+    // Check milestone completion
+    if (tasksCompleted >= milestoneTarget) {
+        resources += milestoneReward;
+        tasksCompleted = 0; // Reset tasks
+        this.updateProgressBar();
+        this.showMilestonePopup();
+    }
+
+    // Reset task object for next click
+    taskObject.setVisible(false);
+    this.time.addEvent({
+        delay: 1000, // 1-second delay
+        callback: () => taskObject.setVisible(true),
+    });
 }
 
 function updateProgressBar() {
     const progressBarWidth = this.cameras.main.width * 0.6; // Match canvas scaling
     const progress = (tasksCompleted / milestoneTarget) * progressBarWidth;
     this.progressBar.width = progress;
-}
-
-function checkMilestone() {
-    if (tasksCompleted === milestoneTarget) {
-        resources += milestoneReward; // Milestone reward
-        this.showMilestonePopup();
-        this.progressBar.width = 0; // Reset progress bar
-        tasksCompleted = 0; // Reset milestone counter
-    }
 }
 
 function showMilestonePopup() {
@@ -113,7 +134,7 @@ function showMilestonePopup() {
         fill: '#00ff00',
     }).setOrigin(0.5);
 
-    const rewardText = this.add.text(centerX, centerY, `Bonus Reward: +${milestoneReward} Resources`, {
+    const rewardText = this.add.text(centerX, centerY, `You earned +${milestoneReward} Resources!`, {
         font: '18px Arial',
         fill: '#ffffff',
     }).setOrigin(0.5);
