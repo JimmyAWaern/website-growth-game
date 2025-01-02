@@ -1,32 +1,64 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Growth Tycoon</title>
+<html>
+<head>
+    <title>My Awesome Game Dev Tycoon</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="game-container">
-        <h1>Website Growth Tycoon</h1>
-        <div id="category-selection">
-            <h2>Select a Business Category</h2>
-            <button onclick="selectCategory('E-commerce')">E-commerce</button>
-            <button onclick="selectCategory('Service Business')">Service Business</button>
-            <button onclick="selectCategory('SaaS')">SaaS</button>
+    <div class="container">
+        <h1>My Awesome Game Dev Tycoon</h1>
+
+        <div id="company-info">
+            <h2>Company: <span id="company-name"></span></h2>
+            <p>Funds: $<span id="company-funds"></span></p>
         </div>
-        <div id="domain-input" style="display: none;">
-            <h2>Enter Your Domain Name</h2>
-            <input type="text" id="domain" placeholder="example.com">
-            <button onclick="saveDomainName()">Submit</button>
+
+        <div id="game-development">
+            <h2>Develop New Game</h2>
+            <form id="develop-game-form">
+                <label for="game-name">Game Title:</label>
+                <input type="text" id="game-name" required><br><br>
+
+                <label for="genre">Genre:</label>
+                <select id="genre">
+                    <option value="Action">Action</option>
+                    <option value="RPG">RPG</option>
+                    <option value="Strategy">Strategy</option>
+                    <!-- Add more genres -->
+                </select><br><br>
+
+                <label for="platform">Platform:</label>
+                <select id="platform">
+                    <!-- Platforms will be added dynamically by JavaScript -->
+                </select><br><br>
+
+                <button type="submit">Develop Game</button>
+            </form>
         </div>
-        <div class="resources">Money: <span id="money">1000</span>, Time: <span id="time">50</span>, Team: <span id="team">1</span></div>
-        <div class="market-share">Market Share: <span id="market-share">0</span></div>
-        <div id="level-container" style="display: none;">
-            <!-- Levels dynamically generated here -->
+
+        <div id="research">
+            <h2>Research</h2>
+            <button id="research-button" disabled>Research New Technology (Cost: $<span id="research-cost"></span>)</button>
+            <ul id="researched-technologies">
+                <!-- Researched technologies will be listed here -->
+            </ul>
         </div>
-        <div id="leaderboard" class="leaderboard" style="display: none;">
-            <h2>Competitor Progress</h2>
-            <ul id="competitor-list"><li>Competitor 1: 1016 market share</li><li>Competitor 2: 944 market share</li><li>Competitor 3: 922 market share</li></ul>
+
+        <div id="game-history">
+            <h2>Game History</h2>
+            <ul id="game-list">
+                <!-- Developed games will be listed here -->
+            </ul>
         </div>
-        <div id="status"></div>
+
+        <div id="game-news">
+            <h2>News & Events</h2>
+            <ul id="news-feed">
+                <!-- Game reviews and other events will appear here -->
+            </ul>
+        </div>
     </div>
-</body></html>
+
+    <script src="script.js"></script>
+</body>
+</html>
