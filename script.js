@@ -4,7 +4,7 @@ const gameState = {
     businessType: null,
     time: 0,
     energy: 100,
-    money: 1000,
+    money: 100000,
     skills: {
         seoKnowledge: 0,
         marketingExpertise: 0,
