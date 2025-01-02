@@ -1,64 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Awesome Game Dev Tycoon</title>
+    <title>Online Business Tycoon</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>My Awesome Game Dev Tycoon</h1>
-
-        <div id="company-info">
-            <h2>Company: <span id="company-name"></span></h2>
-            <p>Funds: $<span id="company-funds"></span></p>
+    <div id="game-container">
+        <div id="business-selection">
+            <h2>Choose Your Business</h2>
+            <button id="ecommerce-button">E-commerce</button>
+            <button id="service-button">Service Business</button>
+            <button id="saas-button">SaaS</button>
         </div>
+        <div id="game-play" style="display:none;">
+            <h2>Online Business Tycoon</h2>
+            <div id="game-info">
+                <p>Business: <span id="business-type"></span></p>
+                <p>Time: <span id="time"></span> days</p>
+                <p>Energy: <span id="energy"></span></p>
+                <p>Money: $<span id="money"></span></p>
+                <p>Automation: <span id="automation-level"></span>%</p>
+                <p>Income: $<span id="income"></span></p>
+                <p>Expenses: $<span id="expenses"></span></p>
+            </div>
+            <h3>Tasks</h3>
+            <ul id="task-list"></ul>
 
-        <div id="game-development">
-            <h2>Develop New Game</h2>
-            <form id="develop-game-form">
-                <label for="game-name">Game Title:</label>
-                <input type="text" id="game-name" required><br><br>
-
-                <label for="genre">Genre:</label>
-                <select id="genre">
-                    <option value="Action">Action</option>
-                    <option value="RPG">RPG</option>
-                    <option value="Strategy">Strategy</option>
-                    <!-- Add more genres -->
-                </select><br><br>
-
-                <label for="platform">Platform:</label>
-                <select id="platform">
-                    <!-- Platforms will be added dynamically by JavaScript -->
-                </select><br><br>
-
-                <button type="submit">Develop Game</button>
-            </form>
+            <div id="notifications">
+                <!-- Notifications will appear here -->
+            </div>
         </div>
-
-        <div id="research">
-            <h2>Research</h2>
-            <button id="research-button" disabled>Research New Technology (Cost: $<span id="research-cost"></span>)</button>
-            <ul id="researched-technologies">
-                <!-- Researched technologies will be listed here -->
-            </ul>
+        <div id="game-over" style="display:none;">
+            <h2>Game Over!</h2>
+            <p id="game-over-message"></p>
+            <button id="restart-button">Play Again</button>
         </div>
-
-        <div id="game-history">
-            <h2>Game History</h2>
-            <ul id="game-list">
-                <!-- Developed games will be listed here -->
-            </ul>
-        </div>
-
-        <div id="game-news">
-            <h2>News & Events</h2>
-            <ul id="news-feed">
-                <!-- Game reviews and other events will appear here -->
-            </ul>
+        <div id="game-win" style="display:none;">
+            <h2>Congratulations! You Won!</h2>
+            <p>Your business is a money-generating machine!</p>
+            <button id="restart-win-button">Play Again</button>
         </div>
     </div>
-
+    <audio id="background-music"></audio>
     <script src="script.js"></script>
 </body>
 </html>
